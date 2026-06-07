@@ -204,7 +204,7 @@ body{
 .tabs-inner{
   display:flex;
   justify-content:center;
-  flex-wrap:nowrap;
+  flex-wrap:wrap;
   overflow-x:auto;scrollbar-width:none;
   padding:0;
   gap:6px;
@@ -316,12 +316,7 @@ body{
 .wc-pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
 .wc-pill{font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--indigo-l);color:var(--indigo)}
 .wc-full{grid-column:1/-1}
-@media(max-width:640px){
-  .weather-grid{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:12px;padding-bottom:8px}
-  .weather-grid::-webkit-scrollbar{display:none}
-  .weather-card-w{min-width:220px;flex-shrink:0}
-}
-@media(max-width:480px){.weather-card-w{min-width:200px}}
+@media(max-width:640px){.weather-grid{grid-template-columns:1fr}}
 
 /* ── SPOT IMAGE GRID ── */
 .spot-img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:4px}
@@ -741,8 +736,9 @@ a.dest-card{text-decoration:none;color:inherit;display:block}
   .hero-stats{gap:6px}
   .hero-stat{padding:12px 14px;min-width:72px}
   .hero-stat-val{font-size:18px}
-  .tabs-inner{justify-content:flex-start;padding-right:46px}
+  .tabs-inner{justify-content:center;padding-right:44px}
   .tabs{padding:10px 12px}
+  .dark-toggle{top:12px;transform:none}
 }
 
 /* ── BUDGET TRACKER ── */
