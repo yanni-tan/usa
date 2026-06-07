@@ -700,7 +700,7 @@ a.dest-card{text-decoration:none;color:inherit;display:block}
 .flt-field-val:focus{border-color:var(--indigo)}
 .flt-field-full{grid-column:1/-1}
 .flt-head-sub{font-size:10px;color:rgba(255,255,255,.58);margin-top:3px;font-weight:500}
-@media(max-width:700px){.flt-cards-row{grid-template-columns:1fr}}
+@media(max-width:700px){.flt-cards-row{grid-template-columns:1fr!important}}
 @media(max-width:600px){.flt-details{grid-template-columns:1fr}}
 
 /* ── CALLOUT ── */
@@ -739,6 +739,8 @@ a.dest-card{text-decoration:none;color:inherit;display:block}
   .tabs-inner{justify-content:center;padding-right:44px}
   .tabs{padding:10px 12px}
   .dark-toggle{top:12px;transform:none}
+  .cal-day{padding:8px 2px 6px;min-height:46px}
+  .cal-day-ev{font-size:7px;padding:1px 4px;letter-spacing:0}
 }
 
 /* ── BUDGET TRACKER ── */
@@ -787,7 +789,7 @@ body.dark .cal-toggle-btn.active{background:linear-gradient(135deg,#6366f1,#8b5c
 .cal-month{font-size:10px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--indigo);margin-bottom:14px}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
 .cal-dh{font-size:10px;font-weight:700;text-align:center;color:var(--muted);padding:4px 0;letter-spacing:.3px}
-.cal-day{font-size:12px;font-weight:500;text-align:center;padding:10px 4px 7px;border-radius:10px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;min-height:54px;transition:transform .13s,box-shadow .13s}
+.cal-day{font-size:12px;font-weight:500;text-align:center;padding:10px 4px 7px;border-radius:10px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;min-height:54px;min-width:0;overflow:hidden;transition:transform .13s,box-shadow .13s}
 .cal-day-n{font-size:13px;font-weight:600;line-height:1.2}
 .cal-day-ev{font-size:8px;font-weight:700;line-height:1;text-align:center;letter-spacing:.1px;white-space:nowrap;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,.07);border:1px solid rgba(0,0,0,.07);max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .cal-day.sj{background:var(--green-l);color:#065f46;font-weight:700;cursor:pointer}
