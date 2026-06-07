@@ -204,11 +204,12 @@ body{
 .tabs-inner{
   display:flex;
   justify-content:center;
-  flex-wrap:wrap;
+  flex-wrap:nowrap;
   overflow-x:auto;scrollbar-width:none;
   padding:0;
   gap:6px;
   align-items:center;
+  -webkit-overflow-scrolling:touch;
 }
 .tabs-inner::-webkit-scrollbar{display:none}
 .tab-btn{
@@ -305,7 +306,7 @@ body{
 .pb-fidi{background:linear-gradient(135deg,#0c2340,#0369a1)}
 
 /* ── WEATHER CARDS ── */
-.weather-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.weather-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
 .weather-card-w{background:var(--surface);border:1px solid var(--sep);border-radius:var(--r2);padding:24px 20px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--sh)}
 .wc-icon{font-size:28px;flex-shrink:0;margin-top:2px}
 .wc-city{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
@@ -315,7 +316,12 @@ body{
 .wc-pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
 .wc-pill{font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--indigo-l);color:var(--indigo)}
 .wc-full{grid-column:1/-1}
-@media(max-width:640px){.weather-grid{grid-template-columns:1fr}}
+@media(max-width:640px){
+  .weather-grid{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:12px;padding-bottom:8px}
+  .weather-grid::-webkit-scrollbar{display:none}
+  .weather-card-w{min-width:220px;flex-shrink:0}
+}
+@media(max-width:480px){.weather-card-w{min-width:200px}}
 
 /* ── SPOT IMAGE GRID ── */
 .spot-img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:4px}
@@ -731,10 +737,12 @@ a.dest-card{text-decoration:none;color:inherit;display:block}
   .hero{padding:60px 16px 52px}
   .hero h1{letter-spacing:-2px}
   .spot-img-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-  .container{padding:20px 12px 80px}
+  .container{padding:16px 12px 80px}
   .hero-stats{gap:6px}
   .hero-stat{padding:12px 14px;min-width:72px}
   .hero-stat-val{font-size:18px}
+  .tabs-inner{justify-content:flex-start;padding-right:46px}
+  .tabs{padding:10px 12px}
 }
 
 /* ── BUDGET TRACKER ── */
@@ -1023,7 +1031,7 @@ body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,25
   </div>
 
   <div class="flt-section-label">🌤 Weather</div>
-  <div class="weather-grid" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:20px">
+  <div class="weather-grid" style="margin-bottom:20px">
     <div class="weather-card-w">
       <div class="wc-icon">⛅</div>
       <div>
