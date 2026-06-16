@@ -969,6 +969,75 @@ body.dark .dest-dtag{background:rgba(99,102,241,.18);color:#a5b4fc}
 /* dark toggle button */
 .dark-toggle{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:1px solid rgba(20,5,15,.1);background:rgba(255,255,255,.72);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;flex-shrink:0}
 body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15)}
+
+/* ── PACKING LIST ── */
+.pack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:12px}
+.pack-cat{
+  background:rgba(255,255,255,.68);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  border-radius:var(--r2);
+  padding:18px 20px;
+  border:1px solid rgba(255,255,255,.82);
+  box-shadow:0 2px 20px rgba(99,102,241,.07),0 1px 3px rgba(0,0,0,.04);
+}
+.pack-cat-header{
+  display:flex;align-items:center;gap:10px;margin-bottom:14px;
+}
+.pack-cat-icon{font-size:20px;flex-shrink:0}
+.pack-cat-title{font-size:14px;font-weight:800;color:var(--text);letter-spacing:-.2px}
+.pack-cat-count{
+  margin-left:auto;font-size:11px;font-weight:700;
+  padding:2px 9px;border-radius:100px;
+  background:var(--indigo-l);color:var(--indigo);
+  white-space:nowrap;
+}
+.pack-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:6px 0;
+  border-bottom:1px solid var(--sep);
+  cursor:pointer;
+}
+.pack-item:last-child{border-bottom:none;padding-bottom:0}
+.pack-item:first-of-type{padding-top:0}
+.pack-checkbox{
+  width:18px;height:18px;border-radius:5px;
+  border:1.5px solid rgba(99,102,241,.35);
+  background:rgba(255,255,255,.9);
+  flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s,border-color .15s;
+  font-size:11px;color:#fff;
+}
+.pack-item.checked .pack-checkbox{
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  border-color:transparent;
+}
+.pack-item.checked .pack-checkbox::after{content:'✓'}
+.pack-item-text{font-size:13.5px;color:var(--text2);line-height:1.4;font-weight:400}
+.pack-item.checked .pack-item-text{text-decoration:line-through;color:var(--muted);font-weight:400}
+.pack-item-note{font-size:11px;color:var(--muted);display:block;margin-top:1px}
+.pack-progress-bar{height:4px;border-radius:2px;background:var(--sep);margin-bottom:14px;overflow:hidden}
+.pack-progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6366f1,#8b5cf6);transition:width .3s ease}
+.pack-summary{
+  background:rgba(99,102,241,.06);
+  border:1px solid rgba(99,102,241,.12);
+  border-radius:var(--r);
+  padding:14px 18px;
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;
+}
+.pack-summary-emoji{font-size:22px}
+.pack-summary-text{font-size:13.5px;color:var(--text2);flex:1}
+.pack-summary-text strong{color:var(--indigo)}
+body.dark .pack-cat{background:rgba(26,26,36,.88);border-color:rgba(255,255,255,.08)}
+body.dark .pack-checkbox{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+body.dark .pack-item-text{color:rgba(255,255,255,.75)}
+body.dark .pack-item.checked .pack-item-text{color:rgba(255,255,255,.3)}
+body.dark .pack-item-note{color:rgba(255,255,255,.35)}
+body.dark .pack-progress-bar{background:rgba(255,255,255,.08)}
+body.dark .pack-summary{background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.2)}
+body.dark .pack-summary-text{color:rgba(255,255,255,.65)}
 </style>
 </head>
 <body>
@@ -994,6 +1063,7 @@ body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,25
     <button class="tab-btn" onclick="switchTab('logistics',this)">Flights & Hotels</button>
     <button class="tab-btn" onclick="switchTab('tips',this)">Tips</button>
     <button class="tab-btn" onclick="switchTab('budget',this)">💰 Budget</button>
+    <button class="tab-btn" onclick="switchTab('packing',this)">🎒 Packing</button>
   </div>
   <button class="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
 </div>
@@ -1090,7 +1160,7 @@ body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,25
         <div class="flt-meta">
           <div class="flt-meta-dur"><strong>14h 35m</strong> · Duration</div>
           <div class="flt-meta-pax">👥 Yanni · James</div>
-          <div class="flt-meta-pax">💺 Seats 39A · 39C</div>
+          <div class="flt-meta-pax">💺 Seats 33A · 33C</div>
         </div>
       </div>
     </div>
@@ -1170,7 +1240,7 @@ body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,25
 
       <div class="tl-loc" onclick="toggleTlGroup(this)"><span class="tl-loc-label">✈️ &nbsp;Departure</span><span class="tl-loc-line"></span><span class="tl-loc-chevron">▼</span></div>
       <div class="tl-group-body">
-        <div class="tl-item"><div class="tl-dot key"></div><div class="tl-date"><span class="tl-daynum">Day 1 · </span>Thu, 18 Mar</div><div class="tl-event">Depart Singapore → San Francisco</div><div class="tl-detail">SQ 32 · SIN 09:15 → SFO 08:50 · Premium Economy · Seats 39A &amp; 39C · Changi T3</div></div>
+        <div class="tl-item"><div class="tl-dot key"></div><div class="tl-date"><span class="tl-daynum">Day 1 · </span>Thu, 18 Mar</div><div class="tl-event">Depart Singapore → San Francisco</div><div class="tl-detail">SQ 32 · SIN 09:15 → SFO 08:50 · Premium Economy · Seats 33A &amp; 33C · Changi T3</div></div>
       </div>
 
       <div class="tl-loc" onclick="toggleTlGroup(this)"><span class="tl-loc-label">🌉 &nbsp;San Francisco</span><span class="tl-loc-line"></span><span class="tl-loc-chevron">▼</span></div>
@@ -1228,7 +1298,7 @@ body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,25
         <div class="flt-meta">
           <div class="flt-meta-dur"><strong>14h 35m</strong> · Duration</div>
           <div class="flt-meta-pax">👥 Yanni · James</div>
-          <div class="flt-meta-pax">💺 Seats 39A · 39C</div>
+          <div class="flt-meta-pax">💺 Seats 33A · 33C</div>
         </div>
       </div>
     </div>
@@ -3366,7 +3436,7 @@ body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,25
         </div>
         <div>
           <div class="flt-field-label">Seats</div>
-          <div class="flt-field-val" contenteditable>Yanni 39A · James 39C</div>
+          <div class="flt-field-val" contenteditable>Yanni 33A · James 33C</div>
         </div>
         <div>
           <div class="flt-field-label">Departs</div>
@@ -3793,6 +3863,166 @@ body.dark .dark-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,25
   </div>
 
 </div>
+
+<!-- ════════════════ PACKING ════════════════ -->
+<div id="tab-packing" class="tab-content">
+
+  <div class="sh"><h2>🎒 Packing List</h2></div>
+
+  <div class="pack-summary" id="pack-summary">
+    <div class="pack-summary-emoji">🎒</div>
+    <div class="pack-summary-text"><strong id="pack-done-count">0</strong> of <strong id="pack-total-count">0</strong> items packed</div>
+  </div>
+  <div class="pack-progress-bar" style="margin-top:-10px;margin-bottom:24px">
+    <div class="pack-progress-fill" id="pack-progress-fill" style="width:0%"></div>
+  </div>
+
+  <div class="sh"><h2>📄 Documents & Money</h2></div>
+  <div class="pack-grid" id="pack-grid-docs">
+    <div class="pack-cat">
+      <div class="pack-cat-header">
+        <div class="pack-cat-icon">📋</div>
+        <div class="pack-cat-title">Essential Documents</div>
+        <div class="pack-cat-count" id="count-docs">0 / 0</div>
+      </div>
+      <div class="pack-items" data-cat="docs">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Passport <span class="pack-item-note">Check expiry — must be valid 6+ months</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">ESTA approval print / screenshot <span class="pack-item-note">esta.cbp.dhs.gov — required for SG passport holders</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Flight e-tickets (SQ 32, AS 39, SQ 21)</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Hotel confirmation printouts / screenshots</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Travel insurance documents <span class="pack-item-note">Including 24hr emergency number</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Credit / debit cards <span class="pack-item-note">Notify bank of travel dates beforehand</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Some USD cash <span class="pack-item-note">For tips, cash-only spots, markets</span></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh"><h2>👕 Clothing</h2></div>
+  <div class="pack-grid">
+    <div class="pack-cat">
+      <div class="pack-cat-header">
+        <div class="pack-cat-icon">🌁</div>
+        <div class="pack-cat-title">San Francisco (14–20°C)</div>
+        <div class="pack-cat-count" id="count-sf-clothes">0 / 0</div>
+      </div>
+      <div class="pack-items" data-cat="sf-clothes">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Light jacket or bomber <span class="pack-item-note">Essential — SF gets windy by the bay</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">T-shirts × 3–4 <span class="pack-item-note">Warm enough for daytime</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Light long-sleeve or hoodie × 1–2</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Jeans or chinos × 2</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Smart outfit for wedding <span class="pack-item-note">Dress/suit as needed — 20 Mar</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Comfortable walking shoes <span class="pack-item-note">SF has steep hills</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Dress shoes for wedding</div></div></div>
+      </div>
+    </div>
+    <div class="pack-cat">
+      <div class="pack-cat-header">
+        <div class="pack-cat-icon">🗽</div>
+        <div class="pack-cat-title">New York City (5–14°C)</div>
+        <div class="pack-cat-count" id="count-nyc-clothes">0 / 0</div>
+      </div>
+      <div class="pack-items" data-cat="nyc-clothes">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Warm jacket / coat <span class="pack-item-note">NYC is noticeably colder than SF in March</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Scarf & light gloves <span class="pack-item-note">Wind chill makes it feel colder</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Thermal / base layer × 1–2</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Warm mid-layer (fleece or knit)</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Comfortable shoes for miles of walking <span class="pack-item-note">NYC means ~15k steps/day</span></div></div></div>
+      </div>
+    </div>
+    <div class="pack-cat">
+      <div class="pack-cat-header">
+        <div class="pack-cat-icon">🧦</div>
+        <div class="pack-cat-title">Basics</div>
+        <div class="pack-cat-count" id="count-basics">0 / 0</div>
+      </div>
+      <div class="pack-items" data-cat="basics">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Underwear × 7–8</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Socks × 7–8 <span class="pack-item-note">Including a few warm pairs for NYC</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Sleepwear × 2</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Swimwear <span class="pack-item-note">If hotel has a pool</span></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh"><h2>💻 Electronics</h2></div>
+  <div class="pack-grid">
+    <div class="pack-cat">
+      <div class="pack-cat-header">
+        <div class="pack-cat-icon">🔌</div>
+        <div class="pack-cat-title">Devices & Power</div>
+        <div class="pack-cat-count" id="count-electronics">0 / 0</div>
+      </div>
+      <div class="pack-items" data-cat="electronics">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Phone + charging cable</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Universal power adapter <span class="pack-item-note">US uses Type A (2 flat pins), 110V — SG plugs don't fit</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Portable power bank <span class="pack-item-note">Long days out = heavy phone usage</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">US eSIM activated <span class="pack-item-note">Buy on Airalo before flying — 10–15GB ~SGD 20</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Laptop / iPad <span class="pack-item-note">If needed</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Camera + memory card</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Earphones / AirPods <span class="pack-item-note">14h+ flight — essential</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Multi-port USB charger</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh"><h2>🧴 Toiletries & Health</h2></div>
+  <div class="pack-grid">
+    <div class="pack-cat">
+      <div class="pack-cat-header">
+        <div class="pack-cat-icon">🧴</div>
+        <div class="pack-cat-title">Toiletries</div>
+        <div class="pack-cat-count" id="count-toiletries">0 / 0</div>
+      </div>
+      <div class="pack-items" data-cat="toiletries">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Toothbrush + toothpaste</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Shampoo + conditioner <span class="pack-item-note">Travel-size or buy on arrival</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Face wash + moisturiser <span class="pack-item-note">US air is dry — skin will need it</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Sunscreen <span class="pack-item-note">SF can be sunny with low humidity</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Lip balm <span class="pack-item-note">NYC cold + wind = chapped lips</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Deodorant</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Razor + shaving gear</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Hair products</div></div></div>
+      </div>
+    </div>
+    <div class="pack-cat">
+      <div class="pack-cat-header">
+        <div class="pack-cat-icon">💊</div>
+        <div class="pack-cat-title">Health & Meds</div>
+        <div class="pack-cat-count" id="count-health">0 / 0</div>
+      </div>
+      <div class="pack-items" data-cat="health">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Personal prescription meds <span class="pack-item-note">Bring extra supply + carry-on copy</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Paracetamol / ibuprofen</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Antihistamines</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Blister plasters <span class="pack-item-note">NYC walking will test your feet</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Hand sanitiser (travel size)</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Motion sickness tablets <span class="pack-item-note">If needed for long-haul</span></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh"><h2>🎒 Bags & Travel Gear</h2></div>
+  <div class="pack-grid">
+    <div class="pack-cat">
+      <div class="pack-cat-header">
+        <div class="pack-cat-icon">🧳</div>
+        <div class="pack-cat-title">Bags & Accessories</div>
+        <div class="pack-cat-count" id="count-bags">0 / 0</div>
+      </div>
+      <div class="pack-items" data-cat="bags">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Checked luggage (≤23kg per SQ allowance)</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Carry-on bag (≤7kg) <span class="pack-item-note">Keep valuables + meds in here</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Day backpack <span class="pack-item-note">For sightseeing days</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Packing cubes <span class="pack-item-note">Helps with 2-city trip organisation</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Luggage lock</div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Reusable water bottle <span class="pack-item-note">Tap water is fine to drink in US cities</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Neck pillow + eye mask <span class="pack-item-note">For the 14h+ SIN → SFO leg</span></div></div></div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pack-checkbox"></div><div><div class="pack-item-text">Small umbrella <span class="pack-item-note">SF has surprise showers</span></div></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
 </div><!-- /container -->
 
 <div class="footer">Made with love for our USA adventure · March 2027 · Click any text in the itinerary to edit inline</div>
@@ -4025,6 +4255,33 @@ function toggleDark() {
     });
   }
 })();
+
+function togglePack(item) {
+  item.classList.toggle('checked');
+  updatePackProgress();
+}
+
+function updatePackProgress() {
+  const allItems = document.querySelectorAll('#tab-packing .pack-item');
+  const checked = document.querySelectorAll('#tab-packing .pack-item.checked');
+  const total = allItems.length;
+  const done = checked.length;
+  document.getElementById('pack-done-count').textContent = done;
+  document.getElementById('pack-total-count').textContent = total;
+  document.getElementById('pack-progress-fill').style.width = total ? (done / total * 100) + '%' : '0%';
+  document.querySelectorAll('#tab-packing .pack-items').forEach(function(group) {
+    const cat = group.dataset.cat;
+    const countEl = document.getElementById('count-' + cat);
+    if (!countEl) return;
+    const items = group.querySelectorAll('.pack-item');
+    const done = group.querySelectorAll('.pack-item.checked').length;
+    countEl.textContent = done + ' / ' + items.length;
+    countEl.style.background = done === items.length && items.length > 0 ? 'var(--green-l)' : 'var(--indigo-l)';
+    countEl.style.color = done === items.length && items.length > 0 ? 'var(--green)' : 'var(--indigo)';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', updatePackProgress);
 </script>
 </body>
 </html>
